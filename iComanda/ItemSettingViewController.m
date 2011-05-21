@@ -63,7 +63,7 @@
 
 - (IBAction)create:(id)sender{
     [self setLabel:[labelTextField text]];
-    [self setValue:[NSDecimalNumber decimalNumberWithString:[valueTextField text]]];
+    [self setValue:[NSDecimalNumber decimalNumberWithString:[valueTextField text] locale:[NSLocale currentLocale]]];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
