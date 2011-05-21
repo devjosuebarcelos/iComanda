@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1E10C619137EBDD500033BC7 /* unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E10C618137EBDD500033BC7 /* unselected.png */; };
+		1E10C622137EBF9400033BC7 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E10C621137EBF9400033BC7 /* selected.png */; };
+		1E33A9B91378B7520002A16B /* CloseTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E33A9B71378B7520002A16B /* CloseTabViewController.m */; };
+		1E33A9BA1378B7520002A16B /* CloseTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E33A9B81378B7520002A16B /* CloseTabViewController.xib */; };
+		1E58D3681368F1B5008C1DD2 /* ItemsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E58D3671368F1B5008C1DD2 /* ItemsListViewController.m */; };
+		1E7F080D136B9B4000BB7B96 /* count_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F0808136B9B4000BB7B96 /* count_1.png */; };
+		1E7F080E136B9B4000BB7B96 /* count_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F0809136B9B4000BB7B96 /* count_2.png */; };
+		1E7F080F136B9B4000BB7B96 /* count_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F080A136B9B4000BB7B96 /* count_3.png */; };
+		1E7F0810136B9B4000BB7B96 /* count_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F080B136B9B4000BB7B96 /* count_4.png */; };
+		1E7F0811136B9B4000BB7B96 /* count_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F080C136B9B4000BB7B96 /* count_5.png */; };
+		1EA1B55D135FA15F00BF04E9 /* TabItemCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA1B55B135FA15F00BF04E9 /* TabItemCountViewController.m */; };
+		1EA1B55E135FA15F00BF04E9 /* TabItemCountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EA1B55C135FA15F00BF04E9 /* TabItemCountViewController.xib */; };
+		1EA83ADF138332FD00C96F1C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA83ADD138332FD00C96F1C /* Icon.png */; };
+		1EA83AE0138332FD00C96F1C /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA83ADE138332FD00C96F1C /* Icon@2x.png */; };
+		1EA83AE413833EC700C96F1C /* TableLikeNavigationBarCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA83AE313833EC700C96F1C /* TableLikeNavigationBarCategory.m */; };
+		1EA83AE61383438900C96F1C /* tableNavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA83AE51383438900C96F1C /* tableNavBar@2x.png */; };
+		1EA83AE8138343B400C96F1C /* tableNavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EA83AE7138343B400C96F1C /* tableNavBar.png */; };
+		1EA83AEB1383457A00C96F1C /* WoodBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA83AEA1383457A00C96F1C /* WoodBarButtonItem.m */; };
+		1EC76C89135B339000B5ABFC /* ItemSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC76C87135B338F00B5ABFC /* ItemSettingViewController.m */; };
+		1EC76C8A135B339000B5ABFC /* ItemSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EC76C88135B338F00B5ABFC /* ItemSettingViewController.xib */; };
+		1EFBF03E135A52B7008EDA95 /* ItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFBF03C135A52B7008EDA95 /* ItemListViewController.m */; };
+		1EFBF03F135A52B7008EDA95 /* ItemListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EFBF03D135A52B7008EDA95 /* ItemListViewController.xib */; };
+		1EFF1BC8135911DC009E42E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFF1BC7135911DC009E42E0 /* UIKit.framework */; };
+		1EFF1BCA135911DC009E42E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFF1BC9135911DC009E42E0 /* Foundation.framework */; };
+		1EFF1BCC135911DC009E42E0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFF1BCB135911DC009E42E0 /* CoreGraphics.framework */; };
+		1EFF1BCE135911DC009E42E0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFF1BCD135911DC009E42E0 /* CoreData.framework */; };
+		1EFF1BD4135911DC009E42E0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1EFF1BD2135911DC009E42E0 /* InfoPlist.strings */; };
+		1EFF1BD7135911DC009E42E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF1BD6135911DC009E42E0 /* main.m */; };
+		1EFF1BDA135911DC009E42E0 /* iComandaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF1BD9135911DC009E42E0 /* iComandaAppDelegate.m */; };
+		1EFF1BDD135911DC009E42E0 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EFF1BDB135911DC009E42E0 /* MainWindow.xib */; };
+		1EFF1BE0135911DC009E42E0 /* iComanda.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF1BDE135911DC009E42E0 /* iComanda.xcdatamodeld */; };
+		1EFF1BF31359221A009E42E0 /* TabListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF1BF21359221A009E42E0 /* TabListViewController.m */; };
+		1EFF1BF713593A64009E42E0 /* TabSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF1BF513593A64009E42E0 /* TabSettingViewController.m */; };
+		1EFF1BF813593A64009E42E0 /* TabSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EFF1BF613593A64009E42E0 /* TabSettingViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1E10C618137EBDD500033BC7 /* unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselected.png; sourceTree = "<group>"; };
+		1E10C621137EBF9400033BC7 /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
+		1E33A9B61378B7520002A16B /* CloseTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseTabViewController.h; sourceTree = "<group>"; };
+		1E33A9B71378B7520002A16B /* CloseTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseTabViewController.m; sourceTree = "<group>"; };
+		1E33A9B81378B7520002A16B /* CloseTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CloseTabViewController.xib; sourceTree = "<group>"; };
+		1E58D3661368F1B5008C1DD2 /* ItemsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsListViewController.h; sourceTree = "<group>"; };
+		1E58D3671368F1B5008C1DD2 /* ItemsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsListViewController.m; sourceTree = "<group>"; };
+		1E7F0808136B9B4000BB7B96 /* count_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_1.png; sourceTree = "<group>"; };
+		1E7F0809136B9B4000BB7B96 /* count_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_2.png; sourceTree = "<group>"; };
+		1E7F080A136B9B4000BB7B96 /* count_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_3.png; sourceTree = "<group>"; };
+		1E7F080B136B9B4000BB7B96 /* count_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_4.png; sourceTree = "<group>"; };
+		1E7F080C136B9B4000BB7B96 /* count_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_5.png; sourceTree = "<group>"; };
+		1E9CC6E9136A3E9800C06AC3 /* iComanda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iComanda.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EA1B55A135FA15F00BF04E9 /* TabItemCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabItemCountViewController.h; sourceTree = "<group>"; };
+		1EA1B55B135FA15F00BF04E9 /* TabItemCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabItemCountViewController.m; sourceTree = "<group>"; };
+		1EA1B55C135FA15F00BF04E9 /* TabItemCountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabItemCountViewController.xib; sourceTree = "<group>"; };
+		1EA83ADD138332FD00C96F1C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1EA83ADE138332FD00C96F1C /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		1EA83AE213833EC700C96F1C /* TableLikeNavigationBarCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableLikeNavigationBarCategory.h; sourceTree = "<group>"; };
+		1EA83AE313833EC700C96F1C /* TableLikeNavigationBarCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableLikeNavigationBarCategory.m; sourceTree = "<group>"; };
+		1EA83AE51383438900C96F1C /* tableNavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableNavBar@2x.png"; sourceTree = "<group>"; };
+		1EA83AE7138343B400C96F1C /* tableNavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableNavBar.png; sourceTree = "<group>"; };
+		1EA83AE91383457A00C96F1C /* WoodBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WoodBarButtonItem.h; sourceTree = "<group>"; };
+		1EA83AEA1383457A00C96F1C /* WoodBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoodBarButtonItem.m; sourceTree = "<group>"; };
+		1EC76C86135B338F00B5ABFC /* ItemSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemSettingViewController.h; sourceTree = "<group>"; };
+		1EC76C87135B338F00B5ABFC /* ItemSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemSettingViewController.m; sourceTree = "<group>"; };
+		1EC76C88135B338F00B5ABFC /* ItemSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemSettingViewController.xib; sourceTree = "<group>"; };
+		1EFBF03B135A52B7008EDA95 /* ItemListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemListViewController.h; sourceTree = "<group>"; };
+		1EFBF03C135A52B7008EDA95 /* ItemListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemListViewController.m; sourceTree = "<group>"; };
+		1EFBF03D135A52B7008EDA95 /* ItemListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemListViewController.xib; sourceTree = "<group>"; };
+		1EFF1BC7135911DC009E42E0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1EFF1BC9135911DC009E42E0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1EFF1BCB135911DC009E42E0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1EFF1BCD135911DC009E42E0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1EFF1BD1135911DC009E42E0 /* iComanda-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iComanda-Info.plist"; sourceTree = "<group>"; };
+		1EFF1BD3135911DC009E42E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1EFF1BD5135911DC009E42E0 /* iComanda-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iComanda-Prefix.pch"; sourceTree = "<group>"; };
+		1EFF1BD6135911DC009E42E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1EFF1BD8135911DC009E42E0 /* iComandaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iComandaAppDelegate.h; sourceTree = "<group>"; };
+		1EFF1BD9135911DC009E42E0 /* iComandaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iComandaAppDelegate.m; sourceTree = "<group>"; };
+		1EFF1BDC135911DC009E42E0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		1EFF1BDF135911DC009E42E0 /* iComanda.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iComanda.xcdatamodel; sourceTree = "<group>"; };
+		1EFF1BF11359221A009E42E0 /* TabListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabListViewController.h; sourceTree = "<group>"; };
+		1EFF1BF21359221A009E42E0 /* TabListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabListViewController.m; sourceTree = "<group>"; };
+		1EFF1BF413593A64009E42E0 /* TabSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabSettingViewController.h; sourceTree = "<group>"; };
+		1EFF1BF513593A64009E42E0 /* TabSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabSettingViewController.m; sourceTree = "<group>"; };
+		1EFF1BF613593A64009E42E0 /* TabSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabSettingViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1EFF1BC0135911DC009E42E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EFF1BC8135911DC009E42E0 /* UIKit.framework in Frameworks */,
+				1EFF1BCA135911DC009E42E0 /* Foundation.framework in Frameworks */,
+				1EFF1BCC135911DC009E42E0 /* CoreGraphics.framework in Frameworks */,
+				1EFF1BCE135911DC009E42E0 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E73F13D13760E05004E23E9 /* Bar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Bar;
+			sourceTree = "<group>";
+		};
+		1E7F0806136B9B1D00BB7B96 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1EA83AE7138343B400C96F1C /* tableNavBar.png */,
+				1EA83AE51383438900C96F1C /* tableNavBar@2x.png */,
+				1EA83AE213833EC700C96F1C /* TableLikeNavigationBarCategory.h */,
+				1EA83AE313833EC700C96F1C /* TableLikeNavigationBarCategory.m */,
+				1E10C621137EBF9400033BC7 /* selected.png */,
+				1E10C618137EBDD500033BC7 /* unselected.png */,
+				1E7F0808136B9B4000BB7B96 /* count_1.png */,
+				1E7F0809136B9B4000BB7B96 /* count_2.png */,
+				1E7F080A136B9B4000BB7B96 /* count_3.png */,
+				1E7F080B136B9B4000BB7B96 /* count_4.png */,
+				1E7F080C136B9B4000BB7B96 /* count_5.png */,
+				1EA83AE91383457A00C96F1C /* WoodBarButtonItem.h */,
+				1EA83AEA1383457A00C96F1C /* WoodBarButtonItem.m */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1EFF1BB8135911DB009E42E0 = {
+			isa = PBXGroup;
+			children = (
+				1EFF1BCF135911DC009E42E0 /* iComanda */,
+				1EFF1BC6135911DC009E42E0 /* Frameworks */,
+				1EFF1BC4135911DC009E42E0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1EFF1BC4135911DC009E42E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E9CC6E9136A3E9800C06AC3 /* iComanda.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1EFF1BC6135911DC009E42E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EFF1BC7135911DC009E42E0 /* UIKit.framework */,
+				1EFF1BC9135911DC009E42E0 /* Foundation.framework */,
+				1EFF1BCB135911DC009E42E0 /* CoreGraphics.framework */,
+				1EFF1BCD135911DC009E42E0 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1EFF1BCF135911DC009E42E0 /* iComanda */ = {
+			isa = PBXGroup;
+			children = (
+				1E7F0806136B9B1D00BB7B96 /* Resources */,
+				1E73F13D13760E05004E23E9 /* Bar */,
+				1EFF1BF0135921B0009E42E0 /* TabItemCount */,
+				1EFF1BEF135921A5009E42E0 /* Item */,
+				1EFF1BEE1359219D009E42E0 /* Tab */,
+				1EA83ADD138332FD00C96F1C /* Icon.png */,
+				1EA83ADE138332FD00C96F1C /* Icon@2x.png */,
+				1EFF1BD8135911DC009E42E0 /* iComandaAppDelegate.h */,
+				1EFF1BD9135911DC009E42E0 /* iComandaAppDelegate.m */,
+				1EFF1BDB135911DC009E42E0 /* MainWindow.xib */,
+				1EFF1BDE135911DC009E42E0 /* iComanda.xcdatamodeld */,
+				1EFF1BD0135911DC009E42E0 /* Supporting Files */,
+			);
+			path = iComanda;
+			sourceTree = "<group>";
+		};
+		1EFF1BD0135911DC009E42E0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1EFF1BD1135911DC009E42E0 /* iComanda-Info.plist */,
+				1EFF1BD2135911DC009E42E0 /* InfoPlist.strings */,
+				1EFF1BD5135911DC009E42E0 /* iComanda-Prefix.pch */,
+				1EFF1BD6135911DC009E42E0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1EFF1BEE1359219D009E42E0 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				1EFF1BF11359221A009E42E0 /* TabListViewController.h */,
+				1EFF1BF21359221A009E42E0 /* TabListViewController.m */,
+				1EFF1BF413593A64009E42E0 /* TabSettingViewController.h */,
+				1EFF1BF513593A64009E42E0 /* TabSettingViewController.m */,
+				1EFF1BF613593A64009E42E0 /* TabSettingViewController.xib */,
+				1E33A9B61378B7520002A16B /* CloseTabViewController.h */,
+				1E33A9B71378B7520002A16B /* CloseTabViewController.m */,
+				1E33A9B81378B7520002A16B /* CloseTabViewController.xib */,
+			);
+			name = Tab;
+			sourceTree = "<group>";
+		};
+		1EFF1BEF135921A5009E42E0 /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				1EC76C86135B338F00B5ABFC /* ItemSettingViewController.h */,
+				1EC76C87135B338F00B5ABFC /* ItemSettingViewController.m */,
+				1EC76C88135B338F00B5ABFC /* ItemSettingViewController.xib */,
+				1E58D3661368F1B5008C1DD2 /* ItemsListViewController.h */,
+				1E58D3671368F1B5008C1DD2 /* ItemsListViewController.m */,
+			);
+			name = Item;
+			sourceTree = "<group>";
+		};
+		1EFF1BF0135921B0009E42E0 /* TabItemCount */ = {
+			isa = PBXGroup;
+			children = (
+				1EA1B55A135FA15F00BF04E9 /* TabItemCountViewController.h */,
+				1EA1B55B135FA15F00BF04E9 /* TabItemCountViewController.m */,
+				1EFBF03B135A52B7008EDA95 /* ItemListViewController.h */,
+				1EFBF03C135A52B7008EDA95 /* ItemListViewController.m */,
+				1EFBF03D135A52B7008EDA95 /* ItemListViewController.xib */,
+				1EA1B55C135FA15F00BF04E9 /* TabItemCountViewController.xib */,
+			);
+			name = TabItemCount;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1EFF1BC2135911DC009E42E0 /* iComanda */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1EFF1BE3135911DC009E42E0 /* Build configuration list for PBXNativeTarget "iComanda" */;
+			buildPhases = (
+				1EFF1BBF135911DC009E42E0 /* Sources */,
+				1EFF1BC0135911DC009E42E0 /* Frameworks */,
+				1EFF1BC1135911DC009E42E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iComanda;
+			productName = iComanda;
+			productReference = 1E9CC6E9136A3E9800C06AC3 /* iComanda.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1EFF1BBA135911DB009E42E0 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1EFF1BBD135911DB009E42E0 /* Build configuration list for PBXProject "iComanda" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1EFF1BB8135911DB009E42E0;
+			productRefGroup = 1EFF1BC4135911DC009E42E0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1EFF1BC2135911DC009E42E0 /* iComanda */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1EFF1BC1135911DC009E42E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EFF1BD4135911DC009E42E0 /* InfoPlist.strings in Resources */,
+				1EFF1BDD135911DC009E42E0 /* MainWindow.xib in Resources */,
+				1EFF1BF813593A64009E42E0 /* TabSettingViewController.xib in Resources */,
+				1EFBF03F135A52B7008EDA95 /* ItemListViewController.xib in Resources */,
+				1EC76C8A135B339000B5ABFC /* ItemSettingViewController.xib in Resources */,
+				1EA1B55E135FA15F00BF04E9 /* TabItemCountViewController.xib in Resources */,
+				1E7F080D136B9B4000BB7B96 /* count_1.png in Resources */,
+				1E7F080E136B9B4000BB7B96 /* count_2.png in Resources */,
+				1E7F080F136B9B4000BB7B96 /* count_3.png in Resources */,
+				1E7F0810136B9B4000BB7B96 /* count_4.png in Resources */,
+				1E7F0811136B9B4000BB7B96 /* count_5.png in Resources */,
+				1E33A9BA1378B7520002A16B /* CloseTabViewController.xib in Resources */,
+				1E10C619137EBDD500033BC7 /* unselected.png in Resources */,
+				1E10C622137EBF9400033BC7 /* selected.png in Resources */,
+				1EA83ADF138332FD00C96F1C /* Icon.png in Resources */,
+				1EA83AE0138332FD00C96F1C /* Icon@2x.png in Resources */,
+				1EA83AE61383438900C96F1C /* tableNavBar@2x.png in Resources */,
+				1EA83AE8138343B400C96F1C /* tableNavBar.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1EFF1BBF135911DC009E42E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1EFF1BD7135911DC009E42E0 /* main.m in Sources */,
+				1EFF1BDA135911DC009E42E0 /* iComandaAppDelegate.m in Sources */,
+				1EFF1BE0135911DC009E42E0 /* iComanda.xcdatamodeld in Sources */,
+				1EFF1BF31359221A009E42E0 /* TabListViewController.m in Sources */,
+				1EFF1BF713593A64009E42E0 /* TabSettingViewController.m in Sources */,
+				1EFBF03E135A52B7008EDA95 /* ItemListViewController.m in Sources */,
+				1EC76C89135B339000B5ABFC /* ItemSettingViewController.m in Sources */,
+				1EA1B55D135FA15F00BF04E9 /* TabItemCountViewController.m in Sources */,
+				1E58D3681368F1B5008C1DD2 /* ItemsListViewController.m in Sources */,
+				1E33A9B91378B7520002A16B /* CloseTabViewController.m in Sources */,
+				1EA83AE413833EC700C96F1C /* TableLikeNavigationBarCategory.m in Sources */,
+				1EA83AEB1383457A00C96F1C /* WoodBarButtonItem.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1EFF1BD2135911DC009E42E0 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1EFF1BD3135911DC009E42E0 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1EFF1BDB135911DC009E42E0 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1EFF1BDC135911DC009E42E0 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1EFF1BE1135911DC009E42E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = /Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1EFF1BE2135911DC009E42E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Josue Barcelos Pereira (2SU29BXND4)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = /Applications;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A01A20A1-8841-4130-992A-5C53432E02DF";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		1EFF1BE4135911DC009E42E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iComanda/iComanda-Prefix.pch";
+				INFOPLIST_FILE = "iComanda/iComanda-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1EFF1BE5135911DC009E42E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iComanda/iComanda-Prefix.pch";
+				INFOPLIST_FILE = "iComanda/iComanda-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1EFF1BBD135911DB009E42E0 /* Build configuration list for PBXProject "iComanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EFF1BE1135911DC009E42E0 /* Debug */,
+				1EFF1BE2135911DC009E42E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1EFF1BE3135911DC009E42E0 /* Build configuration list for PBXNativeTarget "iComanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EFF1BE4135911DC009E42E0 /* Debug */,
+				1EFF1BE5135911DC009E42E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1EFF1BDE135911DC009E42E0 /* iComanda.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1EFF1BDF135911DC009E42E0 /* iComanda.xcdatamodel */,
+			);
+			currentVersion = 1EFF1BDF135911DC009E42E0 /* iComanda.xcdatamodel */;
+			path = iComanda.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 1EFF1BBA135911DB009E42E0 /* Project object */;
+}
