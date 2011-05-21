@@ -25,6 +25,7 @@ static NSString *LIMIT_ATT = @"limitValue";
     tabList = [[ac allInstancesOf:TAB_ENTITY orderedBy:TAB_LABEL] mutableCopy];
     
     [self setTitle:@"Comandas"];
+    [[self tabBarItem] setImage:[UIImage imageNamed:@"page"]];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewTab:)];
     [[self navigationItem] setRightBarButtonItem:item];

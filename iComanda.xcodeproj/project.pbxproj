@@ -11,6 +11,10 @@
 		1E10C622137EBF9400033BC7 /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E10C621137EBF9400033BC7 /* selected.png */; };
 		1E33A9B91378B7520002A16B /* CloseTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E33A9B71378B7520002A16B /* CloseTabViewController.m */; };
 		1E33A9BA1378B7520002A16B /* CloseTabViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E33A9B81378B7520002A16B /* CloseTabViewController.xib */; };
+		1E463AF5138884BC000E5636 /* calculator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E463AF4138884BC000E5636 /* calculator@2x.png */; };
+		1E463AF7138884CA000E5636 /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E463AF6138884CA000E5636 /* calculator.png */; };
+		1E463AF913888598000E5636 /* page.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E463AF813888598000E5636 /* page.png */; };
+		1E463AFB138885AA000E5636 /* page@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E463AFA138885AA000E5636 /* page@2x.png */; };
 		1E58D3681368F1B5008C1DD2 /* ItemsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E58D3671368F1B5008C1DD2 /* ItemsListViewController.m */; };
 		1E7F080D136B9B4000BB7B96 /* count_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F0808136B9B4000BB7B96 /* count_1.png */; };
 		1E7F080E136B9B4000BB7B96 /* count_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F0809136B9B4000BB7B96 /* count_2.png */; };
@@ -49,6 +53,10 @@
 		1E33A9B61378B7520002A16B /* CloseTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseTabViewController.h; sourceTree = "<group>"; };
 		1E33A9B71378B7520002A16B /* CloseTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseTabViewController.m; sourceTree = "<group>"; };
 		1E33A9B81378B7520002A16B /* CloseTabViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CloseTabViewController.xib; sourceTree = "<group>"; };
+		1E463AF4138884BC000E5636 /* calculator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calculator@2x.png"; sourceTree = "<group>"; };
+		1E463AF6138884CA000E5636 /* calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator.png; sourceTree = "<group>"; };
+		1E463AF813888598000E5636 /* page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = page.png; sourceTree = "<group>"; };
+		1E463AFA138885AA000E5636 /* page@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page@2x.png"; sourceTree = "<group>"; };
 		1E58D3661368F1B5008C1DD2 /* ItemsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsListViewController.h; sourceTree = "<group>"; };
 		1E58D3671368F1B5008C1DD2 /* ItemsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsListViewController.m; sourceTree = "<group>"; };
 		1E7F0808136B9B4000BB7B96 /* count_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = count_1.png; sourceTree = "<group>"; };
@@ -121,6 +129,8 @@
 				1EA83AE7138343B400C96F1C /* tableNavBar.png */,
 				1EA83AE51383438900C96F1C /* tableNavBar@2x.png */,
 				1EA83AE213833EC700C96F1C /* TableLikeNavigationBarCategory.h */,
+				1E463AF6138884CA000E5636 /* calculator.png */,
+				1E463AF4138884BC000E5636 /* calculator@2x.png */,
 				1EA83AE313833EC700C96F1C /* TableLikeNavigationBarCategory.m */,
 				1E10C621137EBF9400033BC7 /* selected.png */,
 				1E10C618137EBDD500033BC7 /* unselected.png */,
@@ -129,6 +139,8 @@
 				1E7F080A136B9B4000BB7B96 /* count_3.png */,
 				1E7F080B136B9B4000BB7B96 /* count_4.png */,
 				1E7F080C136B9B4000BB7B96 /* count_5.png */,
+				1E463AF813888598000E5636 /* page.png */,
+				1E463AFA138885AA000E5636 /* page@2x.png */,
 				1EA83AE91383457A00C96F1C /* WoodBarButtonItem.h */,
 				1EA83AEA1383457A00C96F1C /* WoodBarButtonItem.m */,
 			);
@@ -298,6 +310,10 @@
 				1EA83AE0138332FD00C96F1C /* Icon@2x.png in Resources */,
 				1EA83AE61383438900C96F1C /* tableNavBar@2x.png in Resources */,
 				1EA83AE8138343B400C96F1C /* tableNavBar.png in Resources */,
+				1E463AF5138884BC000E5636 /* calculator@2x.png in Resources */,
+				1E463AF7138884CA000E5636 /* calculator.png in Resources */,
+				1E463AF913888598000E5636 /* page.png in Resources */,
+				1E463AFB138885AA000E5636 /* page@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

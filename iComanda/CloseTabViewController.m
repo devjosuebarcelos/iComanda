@@ -24,6 +24,7 @@
 //    
 //    [barBtnItem release];
     
+    [[self tabBarItem] setImage:[UIImage imageNamed:@"calculator"]];
     [[self tabBarItem] setTitle:@"Fecha Conta"];
 
     return self;
