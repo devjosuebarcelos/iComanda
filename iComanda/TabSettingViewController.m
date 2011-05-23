@@ -63,7 +63,7 @@
 
 - (IBAction)create:(id)sender{
     [self setLabel:[textField text]];
-    [self setLimitValue:[NSDecimalNumber decimalNumberWithString:[limitValueField text]]];
+    [self setLimitValue:[NSDecimalNumber decimalNumberWithString:[limitValueField text] locale:[NSLocale currentLocale]]];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
