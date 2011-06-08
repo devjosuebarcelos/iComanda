@@ -11,7 +11,7 @@
 
 @interface TabListViewController : UITableViewController {
 
-    
+    NSIndexPath *selectedPath;
     NSMutableArray *tabList;
     TabSettingViewController *tabSettingViewController;
     

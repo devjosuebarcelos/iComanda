@@ -11,7 +11,7 @@
 @class TabItemCountViewController;
 
 
-@interface ItemsListViewController : UITableViewController {
+@interface ItemsListViewController : UITableViewController<UIAlertViewDelegate> {
     NSMutableArray *itemList;
     
     NSMutableArray *selectedItems;

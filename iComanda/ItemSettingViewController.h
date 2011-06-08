@@ -12,6 +12,7 @@
 @interface ItemSettingViewController : UIViewController {
     IBOutlet UITextField *labelTextField;
     IBOutlet UITextField *valueTextField;
+    IBOutlet UIButton *clearFieldsButton;
     
     NSString *label;
     NSDecimalNumber *value;
@@ -23,5 +24,6 @@
 
 - (IBAction)create:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)clearFields:(id)sender;
 
 @end

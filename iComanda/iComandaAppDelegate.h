@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class CloseTabViewController;
 
 @interface iComandaAppDelegate : NSObject <UIApplicationDelegate> {
     UINavigationController *navigationController;
@@ -25,11 +26,13 @@
 + (iComandaAppDelegate *)sharedAppDelegate;
 
 - (NSArray *)allInstancesOf:(NSString *)entityName
-                  orderedBy:(NSString *)attName;
+                  orderedBy:(NSString *)attName
+                  ascending:(BOOL)ascending;
 
 - (NSArray *)allInstancesOf:(NSString *)entityName 
                       where:(NSString *)condition 
-                  orderedBy:(NSString *)attName;
+                  orderedBy:(NSString *)attName
+                  ascending:(BOOL)ascending;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;

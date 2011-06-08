@@ -22,11 +22,13 @@ static NSString *ITEMS_ATT = @"items";
 static NSString *TAB_ATT = @"tab";
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     //before separate tab/item
     //iComandaAppDelegate *ac = [iComandaAppDelegate sharedAppDelegate];
     
     //itemList = [[ac allInstancesOf:ITEM_ENTITY where:@"" orderedBy:LABEL_ATT] mutableCopy];
+    
+    [self setTitle:@"Cardápio"];
         
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewItem:)];
     [[self navigationItem] setRightBarButtonItem:item];
@@ -184,7 +186,7 @@ static NSString *TAB_ATT = @"tab";
     
     NSManagedObject *item = [itemList objectAtIndex:[indexPath row]];
     
-    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - R$%@",[item valueForKey:LABEL_ATT],[item valueForKey:VALUE_ATT]]];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@",[item valueForKey:LABEL_ATT], [NSNumberFormatter localizedStringFromNumber:[item valueForKey:VALUE_ATT] numberStyle:NSNumberFormatterCurrencyStyle]   ]];
     
     
     [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
@@ -224,9 +226,21 @@ static NSString *TAB_ATT = @"tab";
         //[[self navigationController] popViewControllerAnimated:YES];
         [tableView reloadData];
     }else{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Aviso!" message:@"Desmarcar esse item irá excluir a contagem do mesmo na comanda! Deseja prosseguir?" delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"OK", nil] autorelease];
+        [alert show];
+        
+        //[selectedItems removeObject:item];
+        //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-    
+//    [tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 1){
+        NSManagedObject *item = [itemList objectAtIndex:[[[self tableView] indexPathForSelectedRow] row]];
+        [selectedItems removeObject:item];
+        [[self tableView] reloadData];
+    }
 }
 
 - (void)tableView:(UITableView *)tv accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
@@ -248,7 +262,7 @@ static NSString *TAB_ATT = @"tab";
     
     if(editingStyle == UITableViewCellEditingStyleDelete){
         
-        NSManagedObject *itemToDel = [[itemList objectAtIndex:[indexPath row]] autorelease];
+        NSManagedObject *itemToDel = [itemList objectAtIndex:[indexPath row]];
         if(![selectedItems containsObject:itemToDel]){
             iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
             NSManagedObjectContext *moc = [appDel managedObjectContext];

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Foursquare</key>
+	<dict>
+		<key>Connect</key>
+		<string>Foursquare</string>
+		<key>Publicar comanda como tip</key>
+		<false/>
+	</dict>
+	<key>Geral</key>
+	<dict>
+		<key>Lista padrao</key>
+		<string>Lista Padrão</string>
+        <key>Ajuda</key>
+		<string>Ajuda</string>
+        <key>Sobre</key>
+		<string>Sobre</string>
+	</dict>
+</dict>
+</plist>

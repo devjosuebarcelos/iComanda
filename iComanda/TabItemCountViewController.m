@@ -14,7 +14,7 @@
 @synthesize itemCountValue, itemLabelValue;
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     
     [self setTitle:@"Adicionar Item"];
     

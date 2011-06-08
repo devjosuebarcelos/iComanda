@@ -19,16 +19,18 @@ static NSString *LABEL_ATT = @"label";
 static NSString *VALUE_ATT = @"value";
 static NSString *COUNT_ATT = @"count";
 static NSString *ITEM_ATT = @"item";
+static NSString *ITEMCOUNT_ATT = @"itemCounts";
 static NSString *TAB_ATT = @"tab";
-//static NSString *LIMIT_ATT = @"limitValue";
+static NSString *LIMIT_ATT = @"limitValue";
+static NSString *TIPCHARGED_ATT = @"isTipCharged";
 
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     
     
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewItem:)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(createNewItem:)];
     
     [[self navigationItem] setRightBarButtonItem:item];
     [item release];
@@ -66,9 +68,7 @@ static NSString *TAB_ATT = @"tab";
     [tab release];
     [tabItemCountList release];
     [selectedItems release];
-    [total release];
     [subTotal release];
-    [tip release];
     [super dealloc];
 }
 
@@ -82,47 +82,12 @@ static NSString *TAB_ATT = @"tab";
 
 #pragma mark - Action methods
 
-- (IBAction)closeTabAction:(id)sender{
-    //CloseTabViewController
-    closeTabViewController = [[CloseTabViewController alloc] init];
-    
-    //set tab values
-    [closeTabViewController setTab:tab];
-    
-    NSManagedObject *item;
-    NSDecimalNumber *currentItemTotal;
-    
-    float totalValue = 0.0f;
-    
-    for (NSManagedObject *tabItem in tabItemCountList) {
-        item = [tabItem valueForKey:ITEM_ATT];
-        NSNumber *count = [tabItem valueForKey:COUNT_ATT];
-        currentItemTotal = [item valueForKey:VALUE_ATT];
-        totalValue += ([count intValue] * [currentItemTotal floatValue]);        
-    }
-    
-    NSDecimalNumber *tabSub = [[NSDecimalNumber alloc] initWithFloat:(totalValue)];
-    
-    NSDecimalNumber *tipTotal = [[NSDecimalNumber alloc] initWithFloat:(totalValue*0.1f)];
-    
-    NSDecimalNumber *tabTotal = [[NSDecimalNumber alloc] initWithFloat:totalValue+[tipTotal floatValue]];
-    
-    [closeTabViewController setTabSubTotal:tabSub];
-    [closeTabViewController setTabTip:tipTotal];
-    [closeTabViewController setTabTotal:tabTotal];
-    
-    
-    
-    [[self navigationController] pushViewController:closeTabViewController animated:YES];
-    
-}
-
 - (void)createNewItem:(id)sender{
     //ItemSettingsViewController
     itemsListViewController = [[ItemsListViewController alloc] init];
     [itemsListViewController setTab:tab];
     [itemsListViewController setSelectedItems:selectedItems];
-    UINavigationController *itemsListNavVC = [[UINavigationController alloc] initWithRootViewController:itemsListViewController];
+    UINavigationController *itemsListNavVC = [[[UINavigationController alloc] initWithRootViewController:itemsListViewController] autorelease];
     [self presentModalViewController:itemsListNavVC animated:YES];
 
 //    [[self navigationController] pushViewController:itemsListViewController animated:YES];
@@ -144,7 +109,7 @@ static NSString *TAB_ATT = @"tab";
         totalValue += ([count intValue] * [currentItemTotal floatValue]);        
     }
     
-    float tipTotal = totalValue*0.1f;
+    float tipTotal = [[tab valueForKey:TIPCHARGED_ATT] boolValue] ?totalValue*0.1f:0;
     
     float tabTotal = totalValue+tipTotal;
     
@@ -152,25 +117,31 @@ static NSString *TAB_ATT = @"tab";
     NSLog(@"%f",tipTotal);
     NSLog(@"%f",tabTotal);
     
-//    NSDecimalNumber *tabLimit = [tab valueForKey:LIMIT_ATT];
+    NSDecimalNumber *tabLimit = [tab valueForKey:LIMIT_ATT];
     
-//    float percentage = (totalValue/[tabLimit floatValue])*100;
     
-//    if(percentage > 75 && percentage < 90){
-//        [[self view] setBackgroundColor:[UIColor yellowColor]];
-//    }else if(percentage > 90){
-//        [[self view] setBackgroundColor:[UIColor redColor]];
-//    }else{
-//        [[self view] setBackgroundColor:[UIColor clearColor]];
-//    }
+    float percentage = (totalValue/[tabLimit floatValue])*100;
+    NSString *difference = [NSNumberFormatter localizedStringFromNumber:[NSNumber numberWithFloat:([tabLimit floatValue] - totalValue)] numberStyle:NSNumberFormatterCurrencyStyle];
     
-//    [[self view] setNeedsDisplay];
+    if(percentage > 75 && percentage <= 90){
+//       [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
+    }else if(percentage > 90 && percentage <= 100){
+//        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
+    }else if(percentage > 100){
+        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
+    }else{
+        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:nil];
+    }
     
-    [subTotal setText:[NSString stringWithFormat:@"R$%.2f",totalValue]];
-    [tip setText:[NSString stringWithFormat:@"R$%.2f",tipTotal]];
-    [total setText:[NSString stringWithFormat:@"R$%.2f",tabTotal]];
+    [[self view] setNeedsDisplay];
+    
+    
+    //Internacionalizar label
+    [subTotal setText:[NSNumberFormatter localizedStringFromNumber:[NSNumber numberWithFloat:totalValue] numberStyle:NSNumberFormatterCurrencyStyle]];
     
     [itemsTableView reloadData];
+    
+    
 }
 
 #pragma mark - View lifecycle
@@ -188,14 +159,8 @@ static NSString *TAB_ATT = @"tab";
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    [total release];
-    total = nil;
-    
     [subTotal release];
-    total = nil;
-    
-    [tip release];
-    tip = nil;
+    subTotal = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -218,7 +183,7 @@ static NSString *TAB_ATT = @"tab";
                 
                 [tabItem setValue:tab forKey:TAB_ATT];
                 [tabItem setValue:item forKey:ITEM_ATT];            
-                [tabItem setValue:[NSNumber numberWithInt:0] forKey:COUNT_ATT];
+                [tabItem setValue:[NSNumber numberWithInt:1] forKey:COUNT_ATT];
                 
                 NSLog(@"%@",tabItem);
                 [tabItemCountList addObject:tabItem];
@@ -226,6 +191,18 @@ static NSString *TAB_ATT = @"tab";
                 [appDel saveContext];
             }
         }
+        //verify an item was deselected from prev view
+        NSMutableArray *tabItemsToDel = [[[NSMutableArray alloc] init] autorelease];
+        for(NSManagedObject *item in selectedItems){
+            if(![selectedItemsFromView containsObject:item]){
+                [tabItemsToDel addObject:[item valueForKey:ITEMCOUNT_ATT]];
+            }
+        }
+        
+        for (NSManagedObject *tabItemToDel in tabItemsToDel){
+            [self removeTabItemCount:tabItemToDel];
+        }
+        
         
         [itemsListViewController release];
         itemsListViewController = nil;
@@ -236,8 +213,6 @@ static NSString *TAB_ATT = @"tab";
             
         NSManagedObject *tabItemCount = [tabItemCountList objectAtIndex:[selectedPath row]];
             
-        NSLog(@">>>>>>>>>>>>>>>>>> %@",tabItemCount);
-          
         [tabItemCount setValue:[NSNumber numberWithInt:count] forKey:COUNT_ATT];
         [appDel saveContext];
             
@@ -273,6 +248,48 @@ static NSString *TAB_ATT = @"tab";
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (UIImageView *)createImagesForCount:(int)count inView:(UIView *)view{
+    
+    //setting how many imageView will be placed
+    int imgViewsCount = ((count+4)/5);
+    
+    //creating frame where the imgs will be placed
+    CGRect frame = CGRectMake(0, 0, (imgViewsCount*36)+8, view.bounds.size.height-10);
+    
+    //alloc main UIImageView
+    //potential leak = released after setting in cell accessoryView
+    UIImageView *countsImgs = [[UIImageView alloc] initWithFrame:frame];
+    
+    UIImageView *countSubView;
+    
+    //make innerFrame
+    CGRect innerFrame = CGRectMake(0,0, 36, frame.size.height);
+    
+    for (int index = 0; index < imgViewsCount; index++){
+        //alloc sub UIImageView
+        countSubView = [[UIImageView alloc] initWithFrame:innerFrame];
+        //setting the image name
+        NSString *imageName;
+        if(imgViewsCount - index > 1){
+            imageName = @"count_5";
+        }else{
+            imageName = [NSString stringWithFormat:@"count_%d", count-((imgViewsCount-1)*5)];
+        }
+        
+        //setting proper count image
+        [countSubView setImage:[UIImage imageNamed:imageName]];
+        [countsImgs addSubview:countSubView];
+        
+        //release this subview
+        [countSubView release];
+        
+        //moving frame.origin.x to the right for the next image
+        innerFrame.origin.x += 36;
+    }
+    
+    return countsImgs;
+}
+
 #pragma mark table view methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -286,12 +303,18 @@ static NSString *TAB_ATT = @"tab";
     NSManagedObject *itemCount = [tabItemCountList objectAtIndex:[indexPath row]];
     NSManagedObject *item = [itemCount valueForKey:ITEM_ATT];
     
-    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@",[item valueForKey:LABEL_ATT], [itemCount valueForKey:@"count"]]];
+    [[cell textLabel] setText:[NSString stringWithFormat:@"%@",[item valueForKey:LABEL_ATT]]];
     
     //set item value as subtitle
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"R$%@",[item valueForKey:VALUE_ATT]]];
+    [[cell detailTextLabel] setText:[NSNumberFormatter localizedStringFromNumber:[item valueForKey:VALUE_ATT] numberStyle:NSNumberFormatterCurrencyStyle]];
     
-    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    UIImageView *countImages = [self createImagesForCount:[[itemCount valueForKey:COUNT_ATT] intValue] inView:cell];
+    
+    [cell setAccessoryView:countImages];
+
+    [countImages release];
+    
+//    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     
     return cell;
 }
@@ -317,29 +340,10 @@ static NSString *TAB_ATT = @"tab";
     NSNumber *count = [tabItemCount valueForKey:COUNT_ATT];
     [tabItemCountViewController setItemCountValue:[count intValue]];
     
-    NSLog(@"%@", tabItemCount);
     
     [[self navigationController] pushViewController:tabItemCountViewController animated:YES];
 
 }
-
-//- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-//    //push TabItemCountViewController
-//    tabItemCountViewController = [[TabItemCountViewController alloc] init];
-//    NSManagedObject *tabItemCount = [tabItemCountList objectAtIndex:[indexPath row]];
-//    NSManagedObject *it = [tabItemCount valueForKey:ITEM_ATT];
-//    
-//    [tabItemCountViewController setItemLabelValue:[it valueForKey:LABEL_ATT]];
-//
-//    NSNumber *count = [tabItemCount valueForKey:COUNT_ATT];
-//    [tabItemCountViewController setItemCountValue:[count intValue]];
-//    
-//    NSLog(@"%@", tabItemCount);
-//    
-//    [itemsTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//    
-//    [[self navigationController] pushViewController:tabItemCountViewController animated:YES];
-//}
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -348,18 +352,20 @@ static NSString *TAB_ATT = @"tab";
         NSManagedObject *tabItemToDel = [tabItemCountList objectAtIndex:[indexPath row]];
 
         //remove item from selectedItems
-        [selectedItems removeObject:[tabItemToDel valueForKey:ITEM_ATT] ];
-        iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
-        NSManagedObjectContext *moc = [appDel managedObjectContext];
-        [moc deleteObject:tabItemToDel];
-        [appDel saveContext];
-        
-        
-        [tabItemCountList removeObject:tabItemToDel];
+        [self removeTabItemCount:tabItemToDel];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
         [self updateInterface];
     }
+}
+
+- (void)removeTabItemCount:(NSManagedObject *)tabItemToDel{
+    [selectedItems removeObject:[tabItemToDel valueForKey:ITEM_ATT] ];
+    iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
+    NSManagedObjectContext *moc = [appDel managedObjectContext];
+    [moc deleteObject:tabItemToDel];
+    [appDel saveContext];
+    [tabItemCountList removeObject:tabItemToDel];
 }
 
 @end

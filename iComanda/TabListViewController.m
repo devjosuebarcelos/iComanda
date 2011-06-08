@@ -16,13 +16,16 @@
 static NSString *TAB_ENTITY = @"Tab";
 static NSString *TAB_LABEL = @"label";
 static NSString *LIMIT_ATT = @"limitValue";
+static NSString *DATE_ATT = @"date";
+static NSString *VENUEID_ATT = @"venueId";
+static NSString *TIPCHARGED_ATT = @"isTipCharged";
 
 - (id)init{
-    [super initWithStyle:UITableViewStylePlain];
+    self = [super initWithStyle:UITableViewStylePlain];
     
     iComandaAppDelegate *ac = [iComandaAppDelegate sharedAppDelegate];
     
-    tabList = [[ac allInstancesOf:TAB_ENTITY orderedBy:TAB_LABEL] mutableCopy];
+    tabList = [[ac allInstancesOf:TAB_ENTITY orderedBy:DATE_ATT ascending:NO] mutableCopy];
     
     [self setTitle:@"Comandas"];
     [[self tabBarItem] setImage:[UIImage imageNamed:@"page"]];
@@ -57,7 +60,9 @@ static NSString *LIMIT_ATT = @"limitValue";
 - (void)createNewTab:(id)sender{
     tabSettingViewController = [[TabSettingViewController alloc] init];
     
-    [[self navigationController] pushViewController:tabSettingViewController animated:YES];
+    UINavigationController *tabSettingNavC = [[[UINavigationController alloc] initWithRootViewController:tabSettingViewController] autorelease];
+    
+    [self presentModalViewController:tabSettingNavC animated:YES];
     
     //tabSettingViewController will be released in viewWillAppear:
 }
@@ -79,35 +84,58 @@ static NSString *LIMIT_ATT = @"limitValue";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //clear closeTabVC badge
+    [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:nil];
+    
     iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
     [appDel setSelectedTabObject:nil];
     if(tabSettingViewController){
         NSString *label = [tabSettingViewController label];
         NSDecimalNumber *limitValue = [tabSettingViewController limitValue];
+        NSString *lastCheckedInVenueId = [tabSettingViewController lastCheckedInVenueId];
+        BOOL tipCharged = [tabSettingViewController isTipCharged];
+        NSLog(@"lastCheckedInVenueId: %@",lastCheckedInVenueId);
         
         if([label length] > 0){
             
             NSManagedObjectContext *moc = [appDel managedObjectContext];
             
-            NSManagedObject *tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
+            NSManagedObject *tab;
+            
+            if(!selectedPath){
+                tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
+                [tab setValue:[NSDate date] forKey:DATE_ATT];
+                
+                [tabList addObject:tab];
+                
+            }else{
+                tab = [tabList objectAtIndex:[selectedPath row]];
+            }
             
             [tab setValue:label forKey:TAB_LABEL];
             [tab setValue:limitValue forKey:LIMIT_ATT];
-            [tabList addObject:tab];
-            NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:TAB_LABEL ascending:YES];
+            
+            [tab setValue:lastCheckedInVenueId forKey:VENUEID_ATT];
+            [tab setValue:[NSNumber numberWithBool:tipCharged ] forKey:TIPCHARGED_ATT];
+            
+            
+            NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:DATE_ATT ascending:NO];
             NSArray *sds = [NSArray arrayWithObject:sd];
             [sd release];
             [tabList sortUsingDescriptors:sds];
             [[self tableView] reloadData];
+            [appDel saveContext];
         }
         [tabSettingViewController release];
         tabSettingViewController = nil;
+        [[self tableView] reloadData];
     }
-    
-    NSIndexPath *selectedPath = [[self tableView] indexPathForSelectedRow];
     
     if(selectedPath){
         [[self tableView] deselectRowAtIndexPath:selectedPath animated:NO];
+        [selectedPath release];
+        selectedPath = nil;
     }
 }
 
@@ -158,7 +186,8 @@ static NSString *LIMIT_ATT = @"limitValue";
     NSManagedObject *tab = [tabList objectAtIndex:[indexPath row]];
     
     [[cell textLabel] setText:[tab valueForKey:TAB_LABEL]];
-    [[cell detailTextLabel] setText:[NSString stringWithFormat:@"Valor limite: R$%@",[tab valueForKey:LIMIT_ATT]]];
+    
+    [[cell detailTextLabel] setText:[NSNumberFormatter localizedStringFromNumber:[tab valueForKey:LIMIT_ATT] numberStyle:NSNumberFormatterCurrencyStyle]];
     [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
     
     return cell;
@@ -219,14 +248,19 @@ static NSString *LIMIT_ATT = @"limitValue";
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    ItemListViewController *itemListVC = [[ItemListViewController alloc] init];
-    
     NSManagedObject *tab = [tabList objectAtIndex:[indexPath row]];
     
-    [itemListVC setTab:tab];
+    tabSettingViewController = [[TabSettingViewController alloc] init];
     
-    [[self navigationController] pushViewController:itemListVC animated:YES];
-    [itemListVC release];
+    [tabSettingViewController setLabel:[tab valueForKey:@"label"]];
+    [tabSettingViewController setLimitValue:[tab valueForKey:@"limitValue"]];
+    [tabSettingViewController setLastCheckedInVenueId:[tab valueForKey:@"venueId"]];
+    [tabSettingViewController setTipCharged:[[tab valueForKey:@"isTipCharged"] boolValue]];
+    
+    selectedPath = indexPath;
+
+    
+    [[self navigationController] pushViewController:tabSettingViewController animated:YES];
     
 }
 
@@ -241,7 +275,7 @@ static NSString *LIMIT_ATT = @"limitValue";
         [moc deleteObject:[tabList objectAtIndex:[indexPath row]]];
         
         [tabList removeObjectAtIndex:[indexPath row]];
-        NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:TAB_LABEL ascending:YES];
+        NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:DATE_ATT ascending:YES];
         NSArray *sds = [NSArray arrayWithObject:sd];
         [sd release];
         [tabList sortUsingDescriptors:sds];

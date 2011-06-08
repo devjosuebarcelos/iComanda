@@ -10,6 +10,7 @@
 #import "TabListViewController.h"
 #import "TableLikeNavigationBarCategory.h"
 #import "CloseTabViewController.h"
+#import "PreferencesViewController.h"
 
 @implementation iComandaAppDelegate
 
@@ -31,7 +32,7 @@ static iComandaAppDelegate *sharedInstance;
         NSLog(@"Creating a second AppController");
     }
     
-    [super init];
+    self = [super init];
     
     sharedInstance = self;
     
@@ -42,7 +43,7 @@ static iComandaAppDelegate *sharedInstance;
     return  sharedInstance;
 }
 
-- (NSArray *)allInstancesOf:(NSString *)entityName orderedBy:(NSString *)attName{
+- (NSArray *)allInstancesOf:(NSString *)entityName orderedBy:(NSString *)attName ascending:(BOOL)ascending{
     //get managed objects context
     NSManagedObjectContext *mObjCtx = [[iComandaAppDelegate sharedAppDelegate] managedObjectContext];
     
@@ -52,7 +53,7 @@ static iComandaAppDelegate *sharedInstance;
     [fetch setEntity:entity];
     
     if(attName){
-        NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:attName ascending:YES];
+        NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:attName ascending:ascending];
         
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortDesc];
         [sortDesc release];
@@ -83,7 +84,7 @@ static iComandaAppDelegate *sharedInstance;
     
 }
 
-- (NSArray *)allInstancesOf:(NSString *)entityName where:(NSString *)condition orderedBy:(NSString *)attName{
+- (NSArray *)allInstancesOf:(NSString *)entityName where:(NSString *)condition orderedBy:(NSString *)attName ascending:(BOOL)ascending{
     //get managed objects context
     NSManagedObjectContext *mObjCtx = [[iComandaAppDelegate sharedAppDelegate] managedObjectContext];
     
@@ -98,7 +99,7 @@ static iComandaAppDelegate *sharedInstance;
     [fetch setPredicate:whereCondition];
     
     if(attName){
-        NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:attName ascending:YES];
+        NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:attName ascending:ascending];
         
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortDesc];
         [sortDesc release];
@@ -129,6 +130,8 @@ static iComandaAppDelegate *sharedInstance;
     
 }
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
@@ -140,10 +143,16 @@ static iComandaAppDelegate *sharedInstance;
 
     CloseTabViewController *closeTabVC = [[CloseTabViewController alloc] init];
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:navigationController, closeTabVC, nil];
+    PreferencesViewController *prefVC = [[PreferencesViewController alloc] init];
+    
+    UINavigationController *prefNavVC = [[UINavigationController alloc] initWithRootViewController:prefVC];
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects:navigationController, closeTabVC, prefNavVC, nil];
     
     [closeTabVC release];
     [tabListVC release];
+    [prefVC release];
+    [prefNavVC release];
     
     [tabBarController setViewControllers:viewControllers];
     [tabBarController setSelectedIndex:0];

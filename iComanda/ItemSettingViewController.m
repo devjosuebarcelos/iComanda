@@ -14,7 +14,7 @@
 @synthesize label, value;
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     
     [self setTitle:@"Novo Item"];
     
@@ -62,15 +62,29 @@
 #pragma mark Action methods
 
 - (IBAction)create:(id)sender{
-    [self setLabel:[labelTextField text]];
-    [self setValue:[NSDecimalNumber decimalNumberWithString:[valueTextField text] locale:[NSLocale currentLocale]]];
-    [[self navigationController] popViewControllerAnimated:YES];
+    
+    if([[labelTextField text] length] > 0 && [[valueTextField text] length] > 0 && (![[valueTextField text] isEqualToString:[NSString localizedStringWithFormat:@"%.2f",0]])){
+        [self setLabel:[labelTextField text]];
+        [self setValue:[NSDecimalNumber decimalNumberWithString:[valueTextField text] locale:[NSLocale currentLocale]]];
+        [[self navigationController] popViewControllerAnimated:YES];
+    }else{
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Erro" message:@"Você deve informar o nome e valor do item!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+        [alert show];
+    }
+    
 }
 
 - (IBAction)cancel:(id)sender{
+    [self clearFields:sender];
+    [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (IBAction)clearFields:(id)sender{
     [self setLabel:nil];
     [self setValue:nil];
-    [[self navigationController] popViewControllerAnimated:YES];
+    [labelTextField setText:nil];
+    [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
+    
 }
 
 #pragma mark - View lifecycle
@@ -83,7 +97,9 @@
     if ([label length] > 0) {
         [self setTitle:label];
         [labelTextField setText:label];
-        [valueTextField setText:[value stringValue]];
+        [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",[value floatValue]]];
+    }else{
+        [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
     }
 }
 

@@ -7,14 +7,15 @@
 //
 
 #import "TabSettingViewController.h"
+#import "Foursquare2.h"
 
 
 @implementation TabSettingViewController
 
-@synthesize label, limitValue;
+@synthesize label, limitValue, lastCheckedInVenueId, tipCharged;
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     
     [self setTitle:@"Nova Comanda"];
     
@@ -46,6 +47,10 @@
 {
     [textField release];
     [label release];
+    [lastCheckedInVenueId release];
+    [getLastCheckinButton release];
+    [activityIndicator release];
+    [switchTipOnOff release];
     [limitValue release];
     [limitValueField release];
     [super dealloc];
@@ -59,17 +64,74 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setLastCheckin:(NSDictionary *)result{
+    NSDictionary *response = [result valueForKey:@"response"];
+    NSDictionary *checkins = [response valueForKey:@"checkins"];
+    NSArray *items = [checkins valueForKey:@"items"];
+    NSDictionary *item = [items objectAtIndex:0];
+    NSDictionary *venue = [item valueForKey:@"venue"];
+    
+    [self setLastCheckedInVenueId:[venue valueForKey:@"id"]];
+    
+    [textField setText:[venue valueForKey:@"name"]];
+    
+    [self startStopActivity:NO];
+
+}
+
+- (void)startStopActivity:(BOOL)start{
+    if(start){
+        [activityIndicator startAnimating];
+    }else{
+        [activityIndicator stopAnimating];
+    }
+    [textField setEnabled:!start];
+    [getLastCheckinButton setEnabled:!start];
+}
+
 #pragma mark Action methods
 
 - (IBAction)create:(id)sender{
-    [self setLabel:[textField text]];
-    [self setLimitValue:[NSDecimalNumber decimalNumberWithString:[limitValueField text] locale:[NSLocale currentLocale]]];
-    [[self navigationController] popViewControllerAnimated:YES];
+    if([[textField text] length] > 0){
+        [self setLabel:[textField text]];
+        
+        [self setLimitValue:[NSDecimalNumber decimalNumberWithString:[limitValueField text] locale:[NSLocale currentLocale]]];
+        [self setTipCharged:[switchTipOnOff isOn]];
+        
+        
+        [[self parentViewController] dismissModalViewControllerAnimated:YES];
+        
+        [[self navigationController] popViewControllerAnimated:YES];
+    }else{
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Erro" message:@"Você deve informar o nome do lugar!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+        [alert show];
+        
+    }
 }
 
 - (IBAction)cancel:(id)sender{
-    [self setLabel:nil];
+    [self clearFields:sender];
+    [[self parentViewController] dismissModalViewControllerAnimated:YES];
     [[self navigationController] popViewControllerAnimated:YES];
+}
+
+- (IBAction)clearFields:(id)sender{
+    [self setLabel:nil];
+    [self setLimitValue:nil];
+    [self setLastCheckedInVenueId:nil];
+    [textField setText:nil];
+    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
+    [switchTipOnOff setOn:NO];
+    
+}
+
+- (IBAction)getLastCheckin:(id)sender{
+    [Foursquare2  getCheckinsByUser:@"self" limit:@"1" offset:@"" afterTimestamp:@"" beforeTimestamp:@"" callback:^(BOOL success, id result){
+                              if (success) {
+                                  [self setLastCheckin:result];
+                              }
+                          }];
+    [self startStopActivity:YES];
 }
 
 #pragma mark - View lifecycle
@@ -78,6 +140,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [textField setText:label];
+    
+    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",[limitValue floatValue]] ];
+    [switchTipOnOff setOn:tipCharged];
 }
 
 - (void)viewDidUnload
@@ -90,11 +157,26 @@
     
     [limitValueField release];
     limitValueField = nil;
+    
+    [getLastCheckinButton release];
+    getLastCheckinButton = nil;
+    
+    [activityIndicator release];
+    activityIndicator = nil;
+    
+    [switchTipOnOff release];
+    switchTipOnOff = nil;
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [textField becomeFirstResponder];
+//    [textField becomeFirstResponder];
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [getLastCheckinButton setHidden:[Foursquare2 isNeedToAuthorize]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -17,8 +17,6 @@
     NSManagedObject *tab;
     
     IBOutlet UILabel *subTotal;
-    IBOutlet UILabel *tip;
-    IBOutlet UILabel *total;
     IBOutlet UITableView *itemsTableView;
     
     ItemsListViewController *itemsListViewController;
@@ -28,7 +26,6 @@
 
 - (void)setTab:(NSManagedObject *)t;
 - (void)blankAllObjects;
-- (IBAction)closeTabAction:(id)sender;
-
+- (void)removeTabItemCount:(NSManagedObject *)tabItemToDel;
 
 @end
