@@ -13,13 +13,6 @@
 
 @implementation TabListViewController
 
-static NSString *TAB_ENTITY = @"Tab";
-static NSString *TAB_LABEL = @"label";
-static NSString *LIMIT_ATT = @"limitValue";
-static NSString *DATE_ATT = @"date";
-static NSString *VENUEID_ATT = @"venueId";
-static NSString *TIPCHARGED_ATT = @"isTipCharged";
-
 - (id)init{
     self = [super initWithStyle:UITableViewStylePlain];
     
@@ -106,9 +99,7 @@ static NSString *TIPCHARGED_ATT = @"isTipCharged";
             if(!selectedPath){
                 tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
                 [tab setValue:[NSDate date] forKey:DATE_ATT];
-                
-                [tabList addObject:tab];
-                
+                    
             }else{
                 tab = [tabList objectAtIndex:[selectedPath row]];
             }
@@ -119,24 +110,19 @@ static NSString *TIPCHARGED_ATT = @"isTipCharged";
             [tab setValue:lastCheckedInVenueId forKey:VENUEID_ATT];
             [tab setValue:[NSNumber numberWithBool:tipCharged ] forKey:TIPCHARGED_ATT];
             
-            
-            NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:DATE_ATT ascending:NO];
-            NSArray *sds = [NSArray arrayWithObject:sd];
-            [sd release];
-            [tabList sortUsingDescriptors:sds];
-            [[self tableView] reloadData];
             [appDel saveContext];
         }
         [tabSettingViewController release];
         tabSettingViewController = nil;
-        [[self tableView] reloadData];
+        
     }
     
     if(selectedPath){
-        [[self tableView] deselectRowAtIndexPath:selectedPath animated:NO];
         [selectedPath release];
         selectedPath = nil;
     }
+    tabList = [[appDel allInstancesOf:TAB_ENTITY orderedBy:DATE_ATT ascending:NO] mutableCopy];
+    [[self tableView] reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -83,7 +83,7 @@
     [self setLabel:nil];
     [self setValue:nil];
     [labelTextField setText:nil];
-    [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
+    [valueTextField setText:nil];
     
 }
 
@@ -98,8 +98,6 @@
         [self setTitle:label];
         [labelTextField setText:label];
         [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",[value floatValue]]];
-    }else{
-        [valueTextField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
     }
 }
 

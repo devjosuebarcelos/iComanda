@@ -15,12 +15,6 @@
 @implementation ItemsListViewController
 @synthesize selectedItem, selectedItems, tab;
 
-static NSString *ITEM_ENTITY = @"Item";
-static NSString *LABEL_ATT = @"label";
-static NSString *VALUE_ATT = @"value";
-static NSString *ITEMS_ATT = @"items";
-static NSString *TAB_ATT = @"tab";
-
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
     //before separate tab/item

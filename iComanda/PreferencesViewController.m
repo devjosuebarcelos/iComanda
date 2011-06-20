@@ -15,7 +15,7 @@
 @implementation PreferencesViewController
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     
     [self setTitle:@"Configurações"];
     

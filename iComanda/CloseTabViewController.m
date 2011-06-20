@@ -11,12 +11,11 @@
 
 @implementation CloseTabViewController
 
-static NSString *TIPCHARGED_ATT = @"isTipCharged";
 
 @synthesize tabTotal, tabTip, tabSubTotal, tab;
 
 - (id)init{
-    [super initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
 //    UIBarButtonItem *barBtnItem;
 //    
 //    //cancel btn

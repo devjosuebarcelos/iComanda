@@ -11,6 +11,7 @@
 #import "TableLikeNavigationBarCategory.h"
 #import "CloseTabViewController.h"
 #import "PreferencesViewController.h"
+#import "VenueListViewController.h"
 
 @implementation iComandaAppDelegate
 
@@ -41,6 +42,21 @@ static iComandaAppDelegate *sharedInstance;
 
 + (iComandaAppDelegate *)sharedAppDelegate{
     return  sharedInstance;
+}
+
+- (void)setSelectedTabObject:(NSManagedObject *)selectedTab{
+    [selectedTab retain];
+    [selectedTabObject release];
+    selectedTabObject = selectedTab;
+    
+    for(UIViewController *vc in [tabBarController viewControllers]){
+        if([vc isKindOfClass:[CloseTabViewController class]]){
+            [[vc tabBarItem] setEnabled:(selectedTab != nil)];
+        }
+    }
+    
+//    [[[[tabBarController viewControllers] objectAtIndex:1] tabBarItem] setEnabled:(selectedTab != nil)];
+    
 }
 
 - (NSArray *)allInstancesOf:(NSString *)entityName orderedBy:(NSString *)attName ascending:(BOOL)ascending{
@@ -135,32 +151,40 @@ static iComandaAppDelegate *sharedInstance;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController = [[UITabBarController alloc] init];
     
     TabListViewController *tabListVC = [[TabListViewController alloc] init];
     
     navigationController = [[UINavigationController alloc] initWithRootViewController:tabListVC];
 
     CloseTabViewController *closeTabVC = [[CloseTabViewController alloc] init];
+    [[closeTabVC tabBarItem] setEnabled:NO];
     
     PreferencesViewController *prefVC = [[PreferencesViewController alloc] init];
     
     UINavigationController *prefNavVC = [[UINavigationController alloc] initWithRootViewController:prefVC];
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:navigationController, closeTabVC, prefNavVC, nil];
+    VenueListViewController *venueListVC = [[VenueListViewController alloc] init];
+    
+    UINavigationController *venueNavVC = [[UINavigationController alloc] initWithRootViewController:venueListVC];
+    
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects: navigationController, closeTabVC, venueNavVC, prefNavVC, nil];
     
     [closeTabVC release];
     [tabListVC release];
     [prefVC release];
     [prefNavVC release];
+    [venueListVC release];
+    [venueNavVC release];
     
     [tabBarController setViewControllers:viewControllers];
     [tabBarController setSelectedIndex:0];
+//    [[[[tabBarController viewControllers] objectAtIndex:1] tabBarItem] setEnabled:NO];
     
 //    [self.window setRootViewController:navigationController];
     [self.window setRootViewController:tabBarController];
     
-    [tabBarController release];
     
     [self.window makeKeyAndVisible];
     return YES;

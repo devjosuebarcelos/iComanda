@@ -12,4 +12,21 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+static NSString *TAB_ENTITY = @"Tab";
+static NSString *TAB_LABEL = @"label";
+static NSString *LIMIT_ATT = @"limitValue";
+static NSString *DATE_ATT = @"date";
+static NSString *VENUEID_ATT = @"venueId";
+static NSString *TIPCHARGED_ATT = @"isTipCharged";
+
+static NSString *ITEM_ENTITY = @"Item";
+static NSString *LABEL_ATT = @"label";
+static NSString *VALUE_ATT = @"value";
+static NSString *ITEMS_ATT = @"items";
+static NSString *TAB_ATT = @"tab";
+
+static NSString *ITEMCOUNT_ENTITY = @"ItemCount";
+static NSString *COUNT_ATT = @"count";
+static NSString *ITEM_ATT = @"item";
+static NSString *ITEMCOUNT_ATT = @"itemCounts";
 #endif

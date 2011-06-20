@@ -95,6 +95,10 @@
     if([[textField text] length] > 0){
         [self setLabel:[textField text]];
         
+        if([[limitValueField text] length] == 0){
+            [limitValueField setText:@"0"];
+        }
+        
         [self setLimitValue:[NSDecimalNumber decimalNumberWithString:[limitValueField text] locale:[NSLocale currentLocale]]];
         [self setTipCharged:[switchTipOnOff isOn]];
         
@@ -120,7 +124,7 @@
     [self setLimitValue:nil];
     [self setLastCheckedInVenueId:nil];
     [textField setText:nil];
-    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",0]];
+    [limitValueField setText:nil];
     [switchTipOnOff setOn:NO];
     
 }
@@ -143,7 +147,7 @@
     
     [textField setText:label];
     
-    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",[limitValue floatValue]] ];
+//    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",[limitValue floatValue]] ];
     [switchTipOnOff setOn:tipCharged];
 }
 

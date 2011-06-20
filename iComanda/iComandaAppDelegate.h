@@ -11,7 +11,7 @@
 
 @interface iComandaAppDelegate : NSObject <UIApplicationDelegate> {
     UINavigationController *navigationController;
-    
+    UITabBarController *tabBarController;
     NSManagedObject *selectedTabObject;
     
 }

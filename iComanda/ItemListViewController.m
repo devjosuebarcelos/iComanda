@@ -14,16 +14,6 @@
 
 @implementation ItemListViewController
 
-static NSString *ITEMCOUNT_ENTITY = @"ItemCount";
-static NSString *LABEL_ATT = @"label";
-static NSString *VALUE_ATT = @"value";
-static NSString *COUNT_ATT = @"count";
-static NSString *ITEM_ATT = @"item";
-static NSString *ITEMCOUNT_ATT = @"itemCounts";
-static NSString *TAB_ATT = @"tab";
-static NSString *LIMIT_ATT = @"limitValue";
-static NSString *TIPCHARGED_ATT = @"isTipCharged";
-
 
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
@@ -123,14 +113,10 @@ static NSString *TIPCHARGED_ATT = @"isTipCharged";
     float percentage = (totalValue/[tabLimit floatValue])*100;
     NSString *difference = [NSNumberFormatter localizedStringFromNumber:[NSNumber numberWithFloat:([tabLimit floatValue] - totalValue)] numberStyle:NSNumberFormatterCurrencyStyle];
     
-    if(percentage > 75 && percentage <= 90){
-//       [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
-    }else if(percentage > 90 && percentage <= 100){
-//        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
-    }else if(percentage > 100){
-        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
-    }else{
+    if(percentage < 75){
         [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:nil];
+    }else if(percentage >= 75){
+        [[[[[self tabBarController] viewControllers] objectAtIndex:1] tabBarItem] setBadgeValue:difference];
     }
     
     [[self view] setNeedsDisplay];
