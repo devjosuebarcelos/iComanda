@@ -31,5 +31,6 @@
 
 - (void)verifyLocationStatus;
 - (void)callSearchVenueWithQuery:(NSString *)query intent:(NSString *)intent;
+- (void)refreshList:(id)sender;
 
 @end

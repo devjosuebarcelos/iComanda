@@ -21,7 +21,10 @@
     [[self tabBarItem] setImage:[UIImage imageNamed:@"world"]];
     [[self tabBarItem] setEnabled:![Foursquare2 isNeedToAuthorize]];
     
-    [[[self navigationController] navigationBar] setHidden:YES];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshList:)];
+    
+    [[self navigationItem] setLeftBarButtonItem:item];
+    [item release];    
     
     venueList = [[NSMutableDictionary alloc] init];
     filteredVenueList = [[NSMutableDictionary alloc] init];
@@ -233,6 +236,10 @@ shouldReloadTableForSearchString:(NSString *)searchString{
 
 #pragma mark - actions
 
+- (void)refreshList:(id)sender{
+    [self verifyLocationStatus];
+}
+
 - (void)callSearchVenueWithQuery:(NSString *)query intent:(NSString *)intent{
     NSString *latitude = [NSString stringWithFormat:@"%.10f", [locationManager.location coordinate].latitude];
     NSString *longitude = [NSString stringWithFormat:@"%.10f", [locationManager.location coordinate].longitude];
@@ -261,7 +268,7 @@ shouldReloadTableForSearchString:(NSString *)searchString{
     }
     [locationManager setDelegate:self];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
-    [locationManager setDistanceFilter:200];
+    [locationManager setDistanceFilter:10];
     [locationManager startUpdatingLocation];
     [activityIndicator startAnimating];
 }
