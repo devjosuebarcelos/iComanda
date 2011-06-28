@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Tab;
 
 
 @interface CloseTabViewController : UIViewController<UITextFieldDelegate> {
@@ -15,7 +16,8 @@
     NSDecimalNumber *tabSubTotal;
     NSDecimalNumber *tabTip;
     
-    NSManagedObject *tab;
+//    NSManagedObject *tab;
+    Tab *tab;
     
     int partyOf;
     int partyOfDozen;
@@ -39,7 +41,8 @@
 @property (nonatomic, retain) NSDecimalNumber *tabTotal;
 @property (nonatomic, retain) NSDecimalNumber *tabTip;
 @property (nonatomic, retain) NSDecimalNumber *tabSubTotal;
-@property (nonatomic, retain) NSManagedObject *tab;
+//@property (nonatomic, retain) NSManagedObject *tab;
+@property (nonatomic, retain) Tab *tab;
 
 - (IBAction) calculateValuePerPerson:(id)sender;
 - (IBAction) tipSlideValueChaged:(id)sender;

@@ -16,7 +16,7 @@
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
     
-    [self setTitle:@"Novo Item"];
+    [self setTitle:NSLocalizedString(@"New Item", @"ItemSettingViewController:Title:New Item")];
     
     UIBarButtonItem *barBtnItem;
     
@@ -68,7 +68,11 @@
         [self setValue:[NSDecimalNumber decimalNumberWithString:[valueTextField text] locale:[NSLocale currentLocale]]];
         [[self navigationController] popViewControllerAnimated:YES];
     }else{
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Erro" message:@"Você deve informar o nome e valor do item!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error!", @"Alerts:Error:Title:Error!")
+                                                         message:NSLocalizedString(@"You must set item's name and a value", @"ItemSettingViewController:Alerts:Error:Messages:Should set name and value") 
+                                                        delegate:self 
+                                               cancelButtonTitle:NSLocalizedString(@"OK", @"Alerts:Buttons:OK")
+                                               otherButtonTitles:nil] autorelease];
         [alert show];
     }
     

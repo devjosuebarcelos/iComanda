@@ -27,7 +27,7 @@
 
 @property (nonatomic, copy) NSString *label;
 @property (nonatomic, retain) NSDecimalNumber *limitValue;
-@property (nonatomic, retain) NSString *lastCheckedInVenueId;
+@property (nonatomic, copy) NSString *lastCheckedInVenueId;
 @property (nonatomic, getter = isTipCharged) BOOL tipCharged;
 
 - (IBAction)create:(id)sender;

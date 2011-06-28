@@ -9,16 +9,15 @@
 #import <UIKit/UIKit.h>
 @class ItemSettingViewController;
 @class TabItemCountViewController;
+@class Tab;
 
 
 @interface ItemsListViewController : UITableViewController<UIAlertViewDelegate> {
-    NSMutableArray *itemList;
-    
     NSMutableArray *selectedItems;
     
     NSManagedObject *selectedItem;
     
-    NSManagedObject *tab;
+    Tab *tab;
     
     NSIndexPath *selectedPath;
     
@@ -26,6 +25,6 @@
 }
 @property (nonatomic, retain) NSManagedObject *selectedItem;
 @property (nonatomic, retain) NSMutableArray *selectedItems;
-@property (nonatomic, retain) NSManagedObject *tab;
+@property (nonatomic, retain) Tab *tab;
 
 @end

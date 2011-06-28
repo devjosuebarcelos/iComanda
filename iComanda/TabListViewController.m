@@ -10,17 +10,15 @@
 #import "iComandaAppDelegate.h"
 #import "TabSettingViewController.h"
 #import "ItemListViewController.h"
+#import "Tab.h"
 
 @implementation TabListViewController
 
+
 - (id)init{
     self = [super initWithStyle:UITableViewStylePlain];
-    
-    iComandaAppDelegate *ac = [iComandaAppDelegate sharedAppDelegate];
-    
-    tabList = [[ac allInstancesOf:TAB_ENTITY orderedBy:DATE_ATT ascending:NO] mutableCopy];
-    
-    [self setTitle:@"Comandas"];
+
+    [self setTitle:NSLocalizedString(@"Checks", @"TabListViewController:Title:Checks")];
     [[self tabBarItem] setImage:[UIImage imageNamed:@"page"]];
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewTab:)];
@@ -37,7 +35,7 @@
 
 - (void)dealloc
 {
-    [tabList release];
+//    [tabList release];
     [super dealloc];
 }
 
@@ -88,27 +86,25 @@
         NSDecimalNumber *limitValue = [tabSettingViewController limitValue];
         NSString *lastCheckedInVenueId = [tabSettingViewController lastCheckedInVenueId];
         BOOL tipCharged = [tabSettingViewController isTipCharged];
-        NSLog(@"lastCheckedInVenueId: %@",lastCheckedInVenueId);
         
         if([label length] > 0){
             
             NSManagedObjectContext *moc = [appDel managedObjectContext];
             
-            NSManagedObject *tab;
+            Tab *tab;
             
             if(!selectedPath){
-                tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
-                [tab setValue:[NSDate date] forKey:DATE_ATT];
+                tab = [NSEntityDescription insertNewObjectForEntityForName:[[Tab class] description] inManagedObjectContext:moc];
+                [tab setDate:[NSDate date]];
                     
             }else{
-                tab = [tabList objectAtIndex:[selectedPath row]];
+                tab = [[appDel allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] objectAtIndex:[selectedPath row]];
             }
             
-            [tab setValue:label forKey:TAB_LABEL];
-            [tab setValue:limitValue forKey:LIMIT_ATT];
-            
-            [tab setValue:lastCheckedInVenueId forKey:VENUEID_ATT];
-            [tab setValue:[NSNumber numberWithBool:tipCharged ] forKey:TIPCHARGED_ATT];
+            [tab setLabel:label];
+            [tab setLimitValue:limitValue];
+            [tab setVenueId:lastCheckedInVenueId];
+            [tab setIsTipCharged:[NSNumber numberWithBool:tipCharged]];
             
             [appDel saveContext];
         }
@@ -121,7 +117,6 @@
         [selectedPath release];
         selectedPath = nil;
     }
-    tabList = [[appDel allInstancesOf:TAB_ENTITY orderedBy:DATE_ATT ascending:NO] mutableCopy];
     [[self tableView] reloadData];
 }
 
@@ -157,7 +152,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [tabList count];
+    iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
+    return [[appDel allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -168,12 +164,12 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
+    iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
+    Tab *tab = [[appDel allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] objectAtIndex:[indexPath row]];
     
-    NSManagedObject *tab = [tabList objectAtIndex:[indexPath row]];
+    [[cell textLabel] setText:[tab label]];
     
-    [[cell textLabel] setText:[tab valueForKey:TAB_LABEL]];
-    
-    [[cell detailTextLabel] setText:[NSNumberFormatter localizedStringFromNumber:[tab valueForKey:LIMIT_ATT] numberStyle:NSNumberFormatterCurrencyStyle]];
+    [[cell detailTextLabel] setText:[NSNumberFormatter localizedStringFromNumber:[tab limitValue] numberStyle:NSNumberFormatterCurrencyStyle]];
     [cell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
     
     return cell;
@@ -225,7 +221,7 @@
     //push ItemListViewController;
     ItemListViewController *itemListVC = [[ItemListViewController alloc] init];
     
-    NSManagedObject *tab = [tabList objectAtIndex:[indexPath row]];
+    Tab *tab = [[[iComandaAppDelegate sharedAppDelegate] allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] objectAtIndex:[indexPath row]];
     
     [itemListVC setTab:tab];
     
@@ -234,14 +230,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-    NSManagedObject *tab = [tabList objectAtIndex:[indexPath row]];
+    Tab *tab = [[[iComandaAppDelegate sharedAppDelegate] allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] objectAtIndex:[indexPath row]];
     
     tabSettingViewController = [[TabSettingViewController alloc] init];
-    
-    [tabSettingViewController setLabel:[tab valueForKey:@"label"]];
-    [tabSettingViewController setLimitValue:[tab valueForKey:@"limitValue"]];
-    [tabSettingViewController setLastCheckedInVenueId:[tab valueForKey:@"venueId"]];
-    [tabSettingViewController setTipCharged:[[tab valueForKey:@"isTipCharged"] boolValue]];
+        
+    [tabSettingViewController setLabel:[tab label]];
+    [tabSettingViewController setLimitValue:[tab limitValue]];
+    [tabSettingViewController setLastCheckedInVenueId:[tab venueId]];
+    [tabSettingViewController setTipCharged:[[tab isTipCharged] boolValue]];
     
     selectedPath = indexPath;
 
@@ -257,15 +253,10 @@
         
         iComandaAppDelegate *appDel = [iComandaAppDelegate sharedAppDelegate];
         NSManagedObjectContext *moc = [appDel managedObjectContext];
+        Tab *tab = [[[iComandaAppDelegate sharedAppDelegate] allInstancesOf:[[Tab class] description] orderedBy:[Tab dateAtt] ascending:NO] objectAtIndex:[indexPath row]];
+        [moc deleteObject:tab];
         
-        [moc deleteObject:[tabList objectAtIndex:[indexPath row]]];
-        
-        [tabList removeObjectAtIndex:[indexPath row]];
-        NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:DATE_ATT ascending:YES];
-        NSArray *sds = [NSArray arrayWithObject:sd];
-        [sd release];
-        [tabList sortUsingDescriptors:sds];
-        
+
         [appDel saveContext];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }

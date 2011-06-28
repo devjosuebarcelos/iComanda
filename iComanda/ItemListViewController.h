@@ -10,11 +10,12 @@
 @class ItemsListViewController;
 @class TabItemCountViewController;
 @class CloseTabViewController;
+@class Tab;
+@class ItemCountEntity;
 
 @interface ItemListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
-    NSMutableArray *tabItemCountList;
     NSMutableArray *selectedItems;
-    NSManagedObject *tab;
+    Tab *tab;
     
     IBOutlet UILabel *subTotal;
     IBOutlet UITableView *itemsTableView;
@@ -24,8 +25,8 @@
     CloseTabViewController *closeTabViewController;
 }
 
-- (void)setTab:(NSManagedObject *)t;
+- (void)setTab:(Tab *)t;
 - (void)blankAllObjects;
-- (void)removeTabItemCount:(NSManagedObject *)tabItemToDel;
+- (void)removeTabItemCount:(ItemCountEntity *)tabItemToDel;
 
 @end

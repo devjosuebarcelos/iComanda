@@ -12,6 +12,7 @@
 #import "CloseTabViewController.h"
 #import "PreferencesViewController.h"
 #import "VenueListViewController.h"
+#import "Tab.h"
 
 @implementation iComandaAppDelegate
 
@@ -44,7 +45,7 @@ static iComandaAppDelegate *sharedInstance;
     return  sharedInstance;
 }
 
-- (void)setSelectedTabObject:(NSManagedObject *)selectedTab{
+- (void)setSelectedTabObject:(Tab *)selectedTab{
     [selectedTab retain];
     [selectedTabObject release];
     selectedTabObject = selectedTab;
@@ -55,9 +56,8 @@ static iComandaAppDelegate *sharedInstance;
         }
     }
     
-//    [[[[tabBarController viewControllers] objectAtIndex:1] tabBarItem] setEnabled:(selectedTab != nil)];
-    
 }
+
 
 - (NSArray *)allInstancesOf:(NSString *)entityName orderedBy:(NSString *)attName ascending:(BOOL)ascending{
     //get managed objects context
@@ -180,9 +180,6 @@ static iComandaAppDelegate *sharedInstance;
     
     [tabBarController setViewControllers:viewControllers];
     [tabBarController setSelectedIndex:0];
-//    [[[[tabBarController viewControllers] objectAtIndex:1] tabBarItem] setEnabled:NO];
-    
-//    [self.window setRootViewController:navigationController];
     [self.window setRootViewController:tabBarController];
     
     

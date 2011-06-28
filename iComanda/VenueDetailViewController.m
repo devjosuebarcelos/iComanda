@@ -9,6 +9,7 @@
 #import "VenueDetailViewController.h"
 #import "iComandaAppDelegate.h"
 #import "Foursquare2.h"
+#import "Tab.h"
 
 @implementation VenueDetailViewController
 
@@ -44,7 +45,7 @@
 {
     [super viewDidLoad];
     
-    [self setTitle:@"Check-in"];
+    [self setTitle:NSLocalizedString(@"Check-in", @"VenueDetailViewController:Title:Check-in")];
     
     //set the name of the current venue
     [venueNameLabel setText:[venue objectForKey:@"name"]];
@@ -56,13 +57,13 @@
     //set the phone of the current venue
     NSString *phoneDescription;
     if([[venue objectForKey:@"contact"] objectForKey:@"phone"]){
-        phoneDescription = [NSString stringWithFormat:@"Fone: %@", [[venue objectForKey:@"contact"] objectForKey:@"phone"]]; 
+        phoneDescription = [NSString stringWithFormat:NSLocalizedString(@"Phone: %@", @"VenueDetailViewController:Formatted:Phone"), [[venue objectForKey:@"contact"] objectForKey:@"phone"]]; 
     }else{
         phoneDescription = @"";
     }
     [venuePhoneLabel setText: phoneDescription];
     //set the hereNow property of the current venue
-    NSString *hereNow = [NSString stringWithFormat:@"%@ pessoas aqui", [[venue objectForKey:@"hereNow"] objectForKey:@"count"]];
+    NSString *hereNow = [NSString stringWithFormat:NSLocalizedString(@"Here now: %@", @"VenueDetailViewController:Formatted:HereNow"), [[venue objectForKey:@"hereNow"] objectForKey:@"count"]];
     [peopleCountLabel setText:hereNow];
     
     [[self view] setNeedsDisplay];
@@ -112,14 +113,21 @@
         
         NSManagedObjectContext *moc = [appDel managedObjectContext];
         
-        NSManagedObject *tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
-        [tab setValue:[NSDate date] forKey:DATE_ATT];
-        
-        [tab setValue:label forKey:TAB_LABEL];
-        [tab setValue:limitValue forKey:LIMIT_ATT];
-        
-        [tab setValue:lastCheckedInVenueId forKey:VENUEID_ATT];
-        [tab setValue:[NSNumber numberWithBool:tipCharged ] forKey:TIPCHARGED_ATT];
+//        NSManagedObject *tab = [NSEntityDescription insertNewObjectForEntityForName:TAB_ENTITY inManagedObjectContext:moc];
+//        [tab setValue:[NSDate date] forKey:DATE_ATT];
+//        
+//        [tab setValue:label forKey:TAB_LABEL];
+//        [tab setValue:limitValue forKey:LIMIT_ATT];
+//        
+//        [tab setValue:lastCheckedInVenueId forKey:VENUEID_ATT];
+//        [tab setValue:[NSNumber numberWithBool:tipCharged ] forKey:TIPCHARGED_ATT];
+
+        Tab *tab = [NSEntityDescription insertNewObjectForEntityForName:[Tab description] inManagedObjectContext:moc];
+        [tab setDate:[NSDate date]];
+        [tab setLabel:label];
+        [tab setLimitValue:limitValue];
+        [tab setVenueId:lastCheckedInVenueId];
+        [tab setIsTipCharged:[NSNumber numberWithBool:tipCharged]];
         
         [appDel saveContext];
     }

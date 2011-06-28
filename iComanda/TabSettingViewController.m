@@ -17,7 +17,7 @@
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
     
-    [self setTitle:@"Nova Comanda"];
+    [self setTitle:NSLocalizedString(@"New Check", @"TabSettingViewController:Title:NewCheck")];
     
     UIBarButtonItem *barBtnItem;
     
@@ -107,7 +107,11 @@
         
         [[self navigationController] popViewControllerAnimated:YES];
     }else{
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Erro" message:@"Você deve informar o nome do lugar!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error!", @"Alerts:Error:Title:Error!")
+                                                         message:NSLocalizedString(@"You must give check a name!", @"TabSettingViewController:Alerts:Error:Messages:EmptyName")
+                                                        delegate:self 
+                                               cancelButtonTitle:NSLocalizedString(@"OK", @"Alerts:Buttons:OK") 
+                                               otherButtonTitles:nil] autorelease];
         [alert show];
         
     }
@@ -146,8 +150,10 @@
     // Do any additional setup after loading the view from its nib.
     
     [textField setText:label];
+    if([limitValue floatValue] > 0.00){
+        [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",[limitValue floatValue]] ];
+    }
     
-//    [limitValueField setText:[NSString localizedStringWithFormat:@"%.2f",[limitValue floatValue]] ];
     [switchTipOnOff setOn:tipCharged];
 }
 
@@ -174,7 +180,6 @@
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-//    [textField becomeFirstResponder];
 }
 
 - (void) viewWillAppear:(BOOL)animated{

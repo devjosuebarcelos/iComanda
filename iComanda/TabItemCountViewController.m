@@ -16,7 +16,7 @@
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
     
-    [self setTitle:@"Adicionar Item"];
+    [self setTitle:NSLocalizedString(@"Add Item", @"TabItemCountViewController:Title:AddItem")];
     
     UIBarButtonItem *barBtnItem;
     

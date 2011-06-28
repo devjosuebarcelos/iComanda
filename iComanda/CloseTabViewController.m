@@ -8,6 +8,9 @@
 
 #import "CloseTabViewController.h"
 #import "iComandaAppDelegate.h"
+#import "Item.h"
+#import "Tab.h"
+#import "ItemCountEntity.h"
 
 @implementation CloseTabViewController
 
@@ -16,17 +19,10 @@
 
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
-//    UIBarButtonItem *barBtnItem;
-//    
-//    //cancel btn
-//    barBtnItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
-//    
-//    [[self navigationItem] setLeftBarButtonItem:barBtnItem];
-//    
-//    [barBtnItem release];
     
     [[self tabBarItem] setImage:[UIImage imageNamed:@"calculator"]];
-    [[self tabBarItem] setTitle:@"Fecha Conta"];
+    
+    [[self tabBarItem] setTitle:NSLocalizedString(@"Split The Bill", @"CloseTabViewController:Title:CloseTab")];
 
     return self;
 }
@@ -79,32 +75,26 @@
 }
 
 - (void)updateInterface{
-    NSArray *itemCounts = [tab valueForKey:@"itemCounts"] ;
-    NSMutableArray *tabItemCountList = [[[NSMutableArray alloc] init] autorelease];
-    for (NSManagedObject *itC in itemCounts){
-        [tabItemCountList addObject:itC];
-    }
-    
     int tipPercentage = [tipPercentageSlider value]*100;
     
     [tipPercentageLabel setText:[NSString stringWithFormat:@"%d%%",  tipPercentage]];
     
-    NSManagedObject *item;
+    Item *item;
     NSDecimalNumber *currentItemTotal;
     
     float totalValue = 0.0f;
     
-    for (NSManagedObject *tabItem in tabItemCountList) {
-        item = [tabItem valueForKey:@"item"];
+    for(ItemCountEntity *tabItem in [[tab itemCounts] allObjects]){
+        item = [tabItem item];
         NSNumber *count = [tabItem valueForKey:@"count"];
-        currentItemTotal = [item valueForKey:@"value"];
+        currentItemTotal = [item value];
         totalValue += ([count intValue] * [currentItemTotal floatValue]);        
     }
     
     
     [self setTabSubTotal:[[[NSDecimalNumber alloc] initWithFloat:(totalValue)] autorelease] ];
     
-    [self setTabTip:[[[NSDecimalNumber alloc] initWithFloat:([[tab valueForKey:TIPCHARGED_ATT] boolValue] ?totalValue*(tipPercentage/100.0f):0)] autorelease] ];
+    [self setTabTip:[[[NSDecimalNumber alloc] initWithFloat:([[tab isTipCharged] boolValue] ?totalValue*(tipPercentage/100.0f):0)] autorelease] ];
     
     [self setTabTotal:[[[NSDecimalNumber alloc] initWithFloat:totalValue+[tabTip floatValue]] autorelease] ];
     
@@ -194,7 +184,7 @@
     
     tab = [[iComandaAppDelegate sharedAppDelegate] selectedTabObject];
     
-    [tipPercentageSlider setEnabled:[[tab valueForKey:TIPCHARGED_ATT] boolValue]];
+    [tipPercentageSlider setEnabled:[[tab isTipCharged] boolValue]];
     
     [self tipSlideValueChaged:nil];
     

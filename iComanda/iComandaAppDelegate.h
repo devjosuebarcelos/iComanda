@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class CloseTabViewController;
+@class Tab;
 
 @interface iComandaAppDelegate : NSObject <UIApplicationDelegate> {
     UINavigationController *navigationController;
     UITabBarController *tabBarController;
-    NSManagedObject *selectedTabObject;
+    Tab *selectedTabObject;
     
 }
 
@@ -21,7 +22,7 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property (nonatomic, retain) NSManagedObject *selectedTabObject;
+@property (nonatomic, retain) Tab *selectedTabObject;
 
 + (iComandaAppDelegate *)sharedAppDelegate;
 

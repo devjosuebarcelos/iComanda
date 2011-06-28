@@ -10,6 +10,7 @@
 #import "FoursquareWebLogin.h"
 #import "SBJSON.h"
 #import "SBJsonParser.h"
+#import "VenueListViewController.h"
 
 
 @implementation PreferencesViewController
@@ -17,13 +18,11 @@
 - (id)init{
     self = [super initWithNibName:nil bundle:nil];
     
-    [self setTitle:@"Configurações"];
+    [self setTitle:NSLocalizedString(@"Settings", @"PreferencesViewController:Title:Settings")];
     
-//    [[self tabBarItem] setTitle:@"Configurações"];
     [[self tabBarItem] setImage:[UIImage imageNamed:@"preferences"]];
     NSString *pathForSettings = [[NSBundle mainBundle] pathForResource:@"Preferences" ofType:@"plist"];
     optionsDict = [[NSDictionary alloc] initWithContentsOfFile:pathForSettings];
-    NSLog(@"prefs: %@", optionsDict);
     
     return self;
 }
@@ -56,6 +55,12 @@ Foursquare2Callback authorizeCallbackDelegate;
 			[Foursquare2 setAccessToken:[result objectForKey:@"access_token"]];
 			authorizeCallbackDelegate(YES,result);
             [authorizeCallbackDelegate release];
+            for (UIViewController *vc in [[self tabBarController] viewControllers]){
+                if ([vc isKindOfClass:[UINavigationController class]] && [[vc title] isEqualToString:NSLocalizedString(@"Places", @"VenueListViewController:Title:Places")]){
+                    
+                    [[vc tabBarItem] setEnabled:YES];
+                }
+            }
 		}
 	}];
     
@@ -63,7 +68,6 @@ Foursquare2Callback authorizeCallbackDelegate;
 
 
 - (void)stopAnimatingActivityIndicator{
-    NSLog(@"stopAnimatingActivityIndicator called");
     [activityIndicator stopAnimating];
     [preferencesTableView reloadData];
 }
@@ -177,6 +181,11 @@ Foursquare2Callback authorizeCallbackDelegate;
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(editingStyle == UITableViewCellEditingStyleDelete){
         [Foursquare2 removeAccessToken];
+        for (UIViewController *vc in [[self tabBarController] viewControllers]){
+            if ([vc isKindOfClass:[UINavigationController class]] && [[vc title] isEqualToString:NSLocalizedString(@"Places", @"VenueListViewController:Title:Places")]){
+                [[vc tabBarItem] setEnabled:NO];
+            }
+        }
         [tableView reloadData];
     }
 }
